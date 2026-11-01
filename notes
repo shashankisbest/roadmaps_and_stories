@@ -1,0 +1,92 @@
+
+
+
+
+
+
+backend checking after configuration and migration:
+(venv) PS C:\SHASHANK\PROJECTS\roadmaps_stories\backend> python manage.py check
+System check identified no issues (0 silenced).
+(venv) PS C:\SHASHANK\PROJECTS\roadmaps_stories\backend> python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying sessions.0001_initial... OK
+(venv) PS C:\SHASHANK\PROJECTS\roadmaps_stories\backend> python manage.py runserver
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 22, 2026 - 14:41:12
+Django version 6.1.2, using settings 'config.settings'
+Starting WSGI development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+
+WARNING: This is a development server. Do not use it in a production setting. Use a production WSGI or ASGI server instead.
+For more information on production servers see: https://docs.djangoproject.com/en/6.1/howto/deployment/
+
+
+
+testing firts api endpoint (database connection and api endpoint testing):
+http://127.0.0.1:8000/api/health/?utm_source=chatgpt.com
+
+
+
+
+
+bloom filter: Python's bitarray package
+
+
+
+
+recalling things:
+thaught of a project that has never existed before. Unique shanks style idea.
+
+designing:
+utilizing the full desktop screen in such a way that user gets maximum information with minimum effor of eyes. 
+basically user doesn't like moving eyes and search for information at different places on a single screen. so, thought of that.
+also, simple yet unique ui so because eyes doesn't like to see complex things and doesn't like when screen changes abruptly...so stationary thingy.
+
+insipired by book design and modern slideshow and webdesign: left section and right section.
+
+
+frontend, backend, db in postgres, integrated them.
+rest api endpoints created and tested.
+
+Nightmare: roadmap engine implementation. (in the ended up using external api and library for that, but still need to implement it myself in future.)
+other nightmare: testing and debugging. Why testing? because has barely done that in past. Debugging: eats dopamine and time. + hurts eyes and emotions.
+
+good idea: relavant stories and separate stories + games(totally failed to implement games because ....I am not a super human that can build a site in 3 weeks sustaining my self integrity + respect)
+
+
+CORS implemented with help of django-cors-headers package. (for frontend and backend integration)
+django lowkey goated
+
+
+tables: pgadmin4 all the tabels
+
+api and backend: urls.py, views.py, serializers.py, models.py, settings.py, admin.py
+
+
+example of serialization and deserialization in Django REST Framework:
+# serializers.py
++ the roadmaps as objects gets serialized into JSON format to be sent over the network to the frontend. and the roadmap components too are accessed like that only.
+
+

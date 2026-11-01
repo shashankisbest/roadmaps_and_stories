@@ -1,0 +1,5 @@
+.\venv\Scripts\Activate.ps1
+
+pip install django djangorestframework django-cors-headers psycopg[binary] python-dotenv
+django-admin startproject config .
+

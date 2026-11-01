@@ -1,0 +1,16 @@
+## Backend tests
+$ python manage.py test
+Exit code: 0
+
+Found 24 test(s).
+System check identified no issues (0 silenced).
+
+[stderr]
+Creating test database for alias 'default'...
+
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 165.287s
+
+OK
+Destroying test database for alias 'default'...

@@ -1,0 +1,58 @@
+## Frontend lint
+$ npm run lint
+Exit code: 0
+
+
+> frontend@0.0.0 lint
+> eslint .
+
+## Frontend production build
+$ npm run build
+Exit code: 0
+
+
+> frontend@0.0.0 build
+> vite build
+
+[36mvite v8.3.3 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 192 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.45 kB │ gzip:   0.29 kB
+dist/assets/index-gJ5I06Yo.css   55.19 kB │ gzip:  10.83 kB
+dist/assets/index-21nVTfjK.js   444.42 kB │ gzip: 139.07 kB
+
+[32m✓ built in 297ms[39m
+
+## Django system checks
+$ python manage.py check
+Exit code: 0
+
+System check identified no issues (0 silenced).
+
+## Migration consistency
+$ python manage.py makemigrations --check --dry-run
+Exit code: 0
+
+No changes detected
+
+## Production Django security checks
+$ python manage.py check --deploy (isolated production-like settings)
+Exit code: 0
+
+
+[stderr]
+System check identified some issues:
+
+WARNINGS:
+?: (security.W005) You have not set the SECURE_HSTS_INCLUDE_SUBDOMAINS setting to True. Without this, your site is potentially vulnerable to attack via an insecure connection to a subdomain. Only set this to True if you are certain that all subdomains of your domain should be served exclusively via SSL.
+?: (security.W021) You have not set the SECURE_HSTS_PRELOAD setting to True. Without this, your site cannot be submitted to the browser preload list.
+
+System check identified 2 issues (0 silenced).
+
+## Frontend dependency audit
+$ npm audit
+Exit code: 0
+
+found 0 vulnerabilities
