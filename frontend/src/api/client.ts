@@ -124,6 +124,8 @@ export const api = {
     }),
   deleteComment: (commentId: number) =>
     request<void>(`comments/${commentId}/`, { method: "DELETE" }),
+  verifyComment: (commentId: number) =>
+    request<{ valid: boolean }>(`comments/${commentId}/verify/`),
   toggleLike: (postId: number, liked: boolean) =>
     request<{ liked: boolean; like_count: number }>(
       `posts/${postId}/like/`,

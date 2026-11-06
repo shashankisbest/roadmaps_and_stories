@@ -1502,6 +1502,19 @@ button {
   font-size: 10px;
 }
 
+.comment-body > .comment-integrity-result {
+  margin: 7px 0 0;
+  font-size: 10px;
+}
+
+.comment-body > .comment-integrity-result.valid {
+  color: #86d6a0;
+}
+
+.comment-body > .comment-integrity-result.invalid {
+  color: #f08a8a;
+}
+
 .nested-replies {
   margin: 15px 0 0 13px;
   padding-left: 18px;

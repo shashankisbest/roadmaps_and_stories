@@ -86,4 +86,79 @@ describe("CommentSection", () => {
     fireEvent.keyDown(input, { key: "Enter" });
     expect(onCommentSubmit).toHaveBeenCalledOnce();
   });
+
+  it("verifies comment integrity only on demand and displays a passing result", async () => {
+    const onVerify = vi.fn().mockResolvedValue({ valid: true });
+    render(
+      <CommentSection
+        activeItem={{ title: "Roadmap" }}
+        comments={[comment]}
+        loading={false}
+        error=""
+        newComment=""
+        onCommentChange={vi.fn()}
+        onCommentSubmit={vi.fn()}
+        onReply={vi.fn()}
+        onDelete={vi.fn()}
+        onVerify={onVerify}
+      />,
+    );
+
+    expect(onVerify).not.toHaveBeenCalled();
+    fireEvent.click(
+      screen.getByRole("button", { name: "Verify integrity of comment by Avery" }),
+    );
+
+    expect(await screen.findByRole("status")).toHaveTextContent(
+      "Integrity verified: comment content matches.",
+    );
+    expect(onVerify).toHaveBeenCalledOnce();
+    expect(onVerify).toHaveBeenCalledWith(1);
+  });
+
+  it("shows loading, failed verification, and request errors", async () => {
+    let resolveVerification;
+    const onVerify = vi.fn(
+      () => new Promise((resolve) => {
+        resolveVerification = resolve;
+      }),
+    );
+    const props = {
+      activeItem: { title: "Roadmap" },
+      comments: [comment],
+      loading: false,
+      error: "",
+      newComment: "",
+      onCommentChange: vi.fn(),
+      onCommentSubmit: vi.fn(),
+      onReply: vi.fn(),
+      onDelete: vi.fn(),
+      onVerify,
+    };
+    const { rerender } = render(<CommentSection {...props} />);
+    fireEvent.click(
+      screen.getByRole("button", { name: "Verify integrity of comment by Avery" }),
+    );
+
+    const loadingButton = screen.getByRole("button", { name: "Verify integrity of comment by Avery" });
+    expect(loadingButton).toBeDisabled();
+    expect(loadingButton).toHaveTextContent("Verifying");
+    resolveVerification({ valid: false });
+    expect(await screen.findByRole("status")).toHaveTextContent(
+      "Integrity check failed: comment content does not match.",
+    );
+
+    rerender(
+      <CommentSection
+        {...props}
+        onVerify={vi.fn().mockRejectedValue(new Error("Network unavailable"))}
+      />,
+    );
+    fireEvent.click(
+      screen.getByRole("button", { name: "Verify integrity of comment by Avery" }),
+    );
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Verification error: Network unavailable",
+    );
+  });
 });

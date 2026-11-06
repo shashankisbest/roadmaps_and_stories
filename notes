@@ -90,3 +90,24 @@ example of serialization and deserialization in Django REST Framework:
 + the roadmaps as objects gets serialized into JSON format to be sent over the network to the frontend. and the roadmap components too are accessed like that only.
 
 
+
+um...hashing:
+basically on comments
+same comments same hash.
+
+
+my idea(premature) is:
+hash is stored and used to display comment.
+so, each comment or i say hash has a count. so to free the memory, weh comment is deleted..the count decreases...and at 0 hash too get deleted.
+
+orrrrrrr pretty much something like that.
+
+right now i am just storing hash and verifying if the thing (comment) is duplicacy
+later: for roadmaps and stories too but for stories it doesn't make THAAAAT much sense.
+
+
+
+
+
+garbage collection:
+for the browser cache thingy....after cache expires...to keep user's browser free....freeing the resources

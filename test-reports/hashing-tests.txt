@@ -1,0 +1,122 @@
+# Phase 7 hashing validation output
+Run timestamp: 2026-11-01T22:57:14+05:30
+Repository: C:\SHASHANK\PROJECTS\roadmaps_stories
+
+## Backend tests
+$ python manage.py test
+Exit code: 0
+
+Found 32 test(s).
+System check identified no issues (0 silenced).
+
+[stderr]
+Creating test database for alias 'default'...
+
+................................
+----------------------------------------------------------------------
+Ran 32 tests in 150.421s
+
+OK
+Destroying test database for alias 'default'...
+
+## Frontend tests
+$ npm run test
+Exit code: 0
+
+
+> frontend@0.0.0 test
+> vitest run
+
+
+ RUN  v5.0.5 C:/SHASHANK/PROJECTS/roadmaps_stories/frontend
+
+
+ Test Files  5 passed (5)
+      Tests  13 passed (13)
+   Start at  22:59:50
+   Duration  20.54s (environment 49%, tests 22%, setup 17%, worker 6%, import 4%)
+
+## Frontend lint
+$ npm run lint
+Exit code: 0
+
+
+> frontend@0.0.0 lint
+> eslint .
+
+## Django system checks
+$ python manage.py check
+Exit code: 0
+
+System check identified no issues (0 silenced).
+
+## Migration consistency
+$ python manage.py makemigrations --check --dry-run
+Exit code: 0
+
+No changes detected
+
+## Frontend production build
+$ npm run build
+Exit code: 0
+
+
+> frontend@0.0.0 build
+> vite build
+
+[36mvite v8.3.3 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 192 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.45 kB │ gzip:   0.29 kB
+dist/assets/index-CzindA01.css   55.34 kB │ gzip:  10.87 kB
+dist/assets/index-3vw5dng0.js   445.28 kB │ gzip: 139.31 kB
+
+[32m✓ built in 1.04s[39m
+
+## Final frontend validation after verification-status styling adjustment
+
+### Final frontend tests
+$ npm run test
+Exit code: 0
+
+
+> frontend@0.0.0 test
+> vitest run
+
+
+ RUN  v5.0.5 C:/SHASHANK/PROJECTS/roadmaps_stories/frontend
+
+
+ Test Files  5 passed (5)
+      Tests  13 passed (13)
+   Start at  23:02:43
+   Duration  18.07s (environment 49%, tests 21%, setup 19%, worker 7%, import 4%)
+
+### Final frontend lint
+$ npm run lint
+Exit code: 0
+
+
+> frontend@0.0.0 lint
+> eslint .
+
+### Final frontend production build
+$ npm run build
+Exit code: 0
+
+
+> frontend@0.0.0 build
+> vite build
+
+[36mvite v8.3.3 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 192 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.45 kB │ gzip:   0.29 kB
+dist/assets/index-CTfJVJvV.css   55.38 kB │ gzip:  10.87 kB
+dist/assets/index-CR0lZ0jr.js   445.28 kB │ gzip: 139.31 kB
+
+[32m✓ built in 360ms[39m

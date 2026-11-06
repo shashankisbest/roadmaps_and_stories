@@ -10,6 +10,7 @@ export default function CommentSection({
   onCommentSubmit,
   onReply,
   onDelete,
+  onVerify,
 }) {
   return (
     <div className="right-content">
@@ -38,6 +39,7 @@ export default function CommentSection({
             comment={comment}
             onReply={onReply}
             onDelete={onDelete}
+            onVerify={onVerify}
           />
           ))
         ) : activeItem ? (

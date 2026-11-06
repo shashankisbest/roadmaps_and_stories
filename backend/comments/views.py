@@ -116,3 +116,17 @@ class CommentDetailView(APIView):
             return Response(status=status.HTTP_403_FORBIDDEN)
         comment.soft_delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class CommentIntegrityView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, comment_id):
+        comment = get_object_or_404(
+            Comment.objects.filter(
+                post__visibility="public",
+                deleted_at__isnull=True,
+            ),
+            comment_id=comment_id,
+        )
+        return Response({"valid": comment.verify_content_hash()})

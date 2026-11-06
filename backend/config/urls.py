@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 from django.http import JsonResponse
 from django.db import connection
 from django.db.utils import OperationalError
-from comments.views import CommentDetailView, PostCommentsView
+from comments.views import CommentDetailView, CommentIntegrityView, PostCommentsView
 from notifications.views import NotificationListView
 from posts.views import (
     LikeView,
@@ -73,6 +73,7 @@ urlpatterns = [
     path("api/posts/<int:post_id>/", PostDetailView.as_view(), name="post-detail"),
     path("api/posts/<int:post_id>/comments/", PostCommentsView.as_view(), name="post-comments"),
     path("api/posts/<int:post_id>/like/", LikeView.as_view(), name="post-like"),
+    path("api/comments/<int:comment_id>/verify/", CommentIntegrityView.as_view(), name="comment-integrity"),
     path("api/comments/<int:comment_id>/", CommentDetailView.as_view(), name="comment-detail"),
     path("api/profiles/<str:username>/", ProfileDetailView.as_view(), name="profile-detail"),
     path("api/profiles/<str:username>/follow/", FollowView.as_view(), name="profile-follow"),

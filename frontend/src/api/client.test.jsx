@@ -71,4 +71,20 @@ describe("API client", () => {
     });
     expect(ApiError).toBeDefined();
   });
+
+  it("requests comment integrity verification without sending a hash", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => ({ valid: true }),
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(api.verifyComment(42)).resolves.toEqual({ valid: true });
+    expect(fetchMock).toHaveBeenCalledWith(
+      expect.objectContaining({ href: "http://localhost:8000/api/comments/42/verify/" }),
+      expect.objectContaining({ method: "GET", credentials: "include" }),
+    );
+    expect(fetchMock.mock.calls[0][1].body).toBeUndefined();
+  });
 });

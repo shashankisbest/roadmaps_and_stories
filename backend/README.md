@@ -60,10 +60,13 @@ account with a demo username already exists, its password and email are not chan
 - `GET /api/auth/current-user/` returns the signed-in user, or `{"user": null}`.
 - `POST /api/auth/logout/` ends the current session.
 - `GET /api/posts/<id>/comments/` returns a nested comment tree.
+- Authenticated `GET /api/comments/<id>/verify/` checks the integrity of a
+  non-deleted comment on a public post and returns `{"valid": true|false}`.
 - `GET /api/profiles/<username>/` returns public profile details and posts.
 - Authenticated write endpoints: `POST /api/posts/create/`,
   `PUT|DELETE /api/posts/<id>/`, `POST|DELETE /api/posts/<id>/like/`,
   `POST /api/posts/<id>/comments/`, `DELETE /api/comments/<id>/`,
+  `GET /api/comments/<id>/verify/`,
   `POST|DELETE /api/profiles/<username>/follow/`,
   `GET /api/notifications/`, and `POST /api/reports/`.
 

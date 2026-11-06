@@ -111,3 +111,21 @@ No command failures.
 - Production must explicitly set `DJANGO_DEBUG=false`, a strong `DJANGO_SECRET_KEY`, `DJANGO_ALLOWED_HOSTS`, and PostgreSQL credentials via environment variables. Production-like checks reject missing key, host, or database credentials.
 - Configure and verify TLS termination and HSTS at the actual deployment/proxy. The production defaults enable secure cookies, HTTPS redirect, and HSTS; proxy configuration must preserve HTTPS detection.
 - The default development cache is process-local; use shared cache storage for effective rate limiting across multiple application workers.
+
+## Phase 7 — SHA-256 comment integrity
+
+- Date: 2026-11-01
+- Command outputs: [`hashing-tests.txt`](./hashing-tests.txt)
+- Backend: `python manage.py test` — PASS, 32 tests.
+- Frontend: `npm run test` — PASS, 13 tests across 5 files.
+- Frontend lint: `npm run lint` — PASS.
+- Django system checks: `python manage.py check` — PASS, no issues.
+- Migration consistency: `python manage.py makemigrations --check --dry-run` — PASS, no changes detected.
+- Frontend production build: `npm run build` — PASS.
+
+The comment integrity feature adds a UTF-8 SHA-256 fingerprint, backfills existing
+comments through migration `comments.0002_comment_content_hash`, and provides
+authenticated, read-only verification for non-deleted comments on public posts.
+The existing project has no comment-edit API or edit UI; model saves that change
+comment content replace its fingerprint. Nested replies, comment creation, and
+ownership-based deletion remain covered by the backend suite.

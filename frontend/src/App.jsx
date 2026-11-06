@@ -293,6 +293,7 @@ function App() {
           onCommentSubmit={() => submitComment(undefined, newComment.trim())}
           onReply={submitComment}
           onDelete={deleteComment}
+          onVerify={user ? api.verifyComment : undefined}
         />
       )}
 

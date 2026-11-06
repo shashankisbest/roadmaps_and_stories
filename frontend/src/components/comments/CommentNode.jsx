@@ -7,10 +7,13 @@ function formatCommentTime(value) {
     : parsed.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
 }
 
-export default function CommentNode({ comment, onReply, onDelete }) {
+export default function CommentNode({ comment, onReply, onDelete, onVerify }) {
   const [replying, setReplying] = useState(false);
   const [draft, setDraft] = useState("");
   const [deleting, setDeleting] = useState(false);
+  const [verifying, setVerifying] = useState(false);
+  const [verification, setVerification] = useState(null);
+  const [verificationError, setVerificationError] = useState("");
 
   function submitReply() {
     if (!draft.trim()) return;
@@ -26,6 +29,21 @@ export default function CommentNode({ comment, onReply, onDelete }) {
       await onDelete(comment.id);
     } finally {
       setDeleting(false);
+    }
+  }
+
+  async function verifyIntegrity() {
+    if (verifying || !onVerify) return;
+    setVerifying(true);
+    setVerification(null);
+    setVerificationError("");
+    try {
+      const result = await onVerify(comment.id);
+      setVerification(result.valid);
+    } catch (error) {
+      setVerificationError(error.message || "Could not verify comment integrity.");
+    } finally {
+      setVerifying(false);
     }
   }
 
@@ -61,7 +79,29 @@ export default function CommentNode({ comment, onReply, onDelete }) {
                 {deleting ? "Deleting…" : "Delete"}
               </button>
             )}
+            {onVerify && !comment.is_deleted && (
+              <button
+                type="button"
+                disabled={verifying}
+                onClick={verifyIntegrity}
+                aria-label={`Verify integrity of comment by ${comment.author}`}
+              >
+                {verifying ? "Verifying…" : "Verify"}
+              </button>
+            )}
           </div>
+          {verification !== null && (
+            <p className={`comment-integrity-result${verification ? " valid" : " invalid"}`} role="status">
+              {verification
+                ? "Integrity verified: comment content matches."
+                : "Integrity check failed: comment content does not match."}
+            </p>
+          )}
+          {verificationError && (
+            <p className="comment-integrity-result invalid" role="alert">
+              Verification error: {verificationError}
+            </p>
+          )}
 
           {replying && (
             <div className="reply-composer">
@@ -89,6 +129,7 @@ export default function CommentNode({ comment, onReply, onDelete }) {
               comment={reply}
               onReply={onReply}
               onDelete={onDelete}
+              onVerify={onVerify}
             />
           ))}
         </div>
